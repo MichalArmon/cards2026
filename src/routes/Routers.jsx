@@ -4,14 +4,15 @@ import CardsPage from "../pages/CardsPage.jsx";
 import AboutPage from "../pages/AboutPage.jsx";
 import FavoritePage from "../pages/FavoritePage.jsx";
 import MyCardsPage from "../pages/MyCardsPage.jsx";
+import { ROUTES } from "./routerDict.js";
 
 export default function Routers() {
   return (
     <Routes>
-      <Route path="/" element={<CardsPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/favorite" element={<FavoritePage />} />
-      <Route path="/my-cards" element={<MyCardsPage />} />
+      <Route path={ROUTES.home} element={<CardsPage />} />
+      <Route path={ROUTES.about} element={<AboutPage />} />
+      <Route path={ROUTES.favorite} element={<FavoritePage />} />
+      <Route path={ROUTES.MyCards} element={<MyCardsPage />} />
     </Routes>
   );
 }

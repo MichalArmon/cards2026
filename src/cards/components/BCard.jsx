@@ -10,11 +10,18 @@ import {
   CardActions,
   Box,
 } from "@mui/material";
-import { Description, Edit, Favorite } from "@mui/icons-material";
-Favorite;
-Edit;
 
-export default function BCard({ title, subheader, description, image }) {
+import BCardBody from "./cardLayout/BCardBody";
+import BCardFooter from "./cardLayout/BCardFooter";
+
+export default function BCard({
+  title,
+  subheader,
+  image,
+  phone,
+  address,
+  email,
+}) {
   return (
     <Card
       sx={{
@@ -26,19 +33,14 @@ export default function BCard({ title, subheader, description, image }) {
       }}
     >
       <CardMedia component="img" image={image} height="180" />
-      <Box sx={{ flexGrow: 1 }}>
-        <CardHeader title={title} subheader={subheader} />
-        <CardContent>{description}</CardContent>
-      </Box>
-
-      <CardActions disableSpacing sx={{ mt: "auto" }}>
-        <IconButton aria-label="add to favorites">
-          <Favorite />
-        </IconButton>
-        <IconButton aria-label="edit card">
-          <Edit />
-        </IconButton>
-      </CardActions>
+      <BCardBody
+        title={title}
+        subheader={subheader}
+        phone={phone}
+        address={address}
+        email={email}
+      />
+      <BCardFooter />
     </Card>
   );
 }

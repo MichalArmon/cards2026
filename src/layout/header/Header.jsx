@@ -1,6 +1,7 @@
-import { AppBar, Toolbar, Box, Tabs, Tab, colors } from "@mui/material";
+import { AppBar, Toolbar, Box, Tabs, Tab } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import {
   CardGiftcard,
   Favorite,
@@ -8,38 +9,39 @@ import {
   Person,
   Style,
 } from "@mui/icons-material";
+import { ROUTES } from "../../routes/routerDict";
 
 const Pages = [
   {
     label: "Home",
-    path: "/",
+    path: ROUTES.home,
     icon: <Home />,
   },
   {
     label: "About",
-    path: "/about",
+    path: ROUTES.about,
     icon: <Person />,
   },
   {
     label: "Cards",
-    path: "/",
+    path: ROUTES.home,
     icon: <CardGiftcard />,
   },
   {
     label: "My Cards",
-    path: "/my-cards",
+    path: ROUTES.MyCards,
     icon: <Style />,
   },
   {
     label: "Favorites",
-    path: "/favorites",
+    path: ROUTES.favorite,
     icon: <Favorite />,
   },
 ];
 
 export default function Header() {
   const [selected, setSelected] = useState("Home");
-  const selectedTab = { color: "secondary.light", fontSize: 40 };
+
   return (
     <AppBar>
       <Toolbar sx={{ justifyContent: "space-between" }}>
