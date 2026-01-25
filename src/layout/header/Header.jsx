@@ -7,6 +7,7 @@ import {
   Favorite,
   Home,
   Person,
+  School,
   Style,
 } from "@mui/icons-material";
 import { ROUTES } from "../../routes/routerDict";
@@ -37,6 +38,11 @@ const Pages = [
     path: ROUTES.favorite,
     icon: <Favorite />,
   },
+  {
+    label: "Send Box",
+    path: ROUTES.sendBox,
+    icon: <School />,
+  },
 ];
 
 export default function Header() {
@@ -51,7 +57,7 @@ export default function Header() {
           display="flex"
           sx={{
             justifyContent: "space-around",
-            width: "40%",
+            width: "70%",
           }}
         >
           {Pages.map((page) => (

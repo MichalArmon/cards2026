@@ -9,6 +9,7 @@ import {
   IconButton,
   CardActions,
   Box,
+  Divider,
 } from "@mui/material";
 
 import BCardBody from "./cardLayout/BCardBody";
@@ -26,7 +27,7 @@ export default function BCard({
     <Card
       sx={{
         m: "auto",
-        width: 250,
+        width: 300,
         height: "100%",
         display: "flex",
         flexDirection: "column",
@@ -40,6 +41,7 @@ export default function BCard({
         address={address}
         email={email}
       />
+
       <BCardFooter />
     </Card>
   );

@@ -13,6 +13,7 @@ import {
   List,
   ListItem,
   Typography,
+  Divider,
 } from "@mui/material";
 import React from "react";
 
@@ -20,6 +21,7 @@ export default function BCardBody({ title, subheader, phone, address, email }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CardHeader title={title} subheader={subheader} />
+      <Divider variant="middle" />
       <CardContent>
         <List disablePadding sx={{ width: "100%", maxWidth: 360 }}>
           <ListItem
