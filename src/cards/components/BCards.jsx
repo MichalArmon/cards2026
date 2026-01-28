@@ -9,9 +9,12 @@ import {
   Grid,
   Typography,
   Container,
+  Pagination,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BCard from "./BCard";
+import axios from "axios";
+import PaginationCard from "./PaginationCard";
 
 // const cards = [
 //   {
@@ -93,10 +96,18 @@ import BCard from "./BCard";
 
 export default function BCards() {
   const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(6);
+
+  const handleChangePage = (event, nextPage) => {
+    setPage(nextPage);
+  };
   const getCardsFromServer = async () => {
-    const response = await fetch("https://cardsserver-8uqn.onrender.com/cards");
-    const json = await response.json();
-    setCards(json);
+    const response = await axios.get(
+      "https://cardsserver-8uqn.onrender.com/cards",
+    );
+
+    setCards(response.data);
     console.log("Ill be second!");
   };
 
@@ -113,7 +124,13 @@ export default function BCards() {
     );
   }
   return (
-    <Container sx={{ display: "flex", justifyContent: "center" }}>
+    <Container
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
       <Grid
         display="flex"
         container
@@ -121,21 +138,39 @@ export default function BCards() {
         alignItems="stretch"
         sx={{ justifyContent: "center" }}
       >
-        {cards.map((card) => (
-          <Grid item>
-            <BCard
-              key={card._id}
-              title={card.title}
-              subheader={card.subtitle}
-              description={card.description}
-              image={card.image.url}
-              phone={card.phone}
-              address={`${card.address.street} ${card.address.houseNumber} st | ${card.address.city} | ${card.address.country} `}
-              email={card.email}
-            />
-          </Grid>
-        ))}
+        {cards
+          .slice(page * cardsPerPage, page * cardsPerPage + cardsPerPage)
+          .map((card) => (
+            <Grid item>
+              <BCard
+                key={card._id}
+                title={card.title}
+                subheader={card.subtitle}
+                description={card.description}
+                image={card.image.url}
+                phone={card.phone}
+                address={`${card.address.street} ${card.address.houseNumber} st | ${card.address.city} | ${card.address.country} `}
+                email={card.email}
+              />
+            </Grid>
+          ))}
       </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          mt: 3,
+        }}
+      >
+        <Pagination
+          component="div"
+          count={Math.floor(cards.length / cardsPerPage)}
+          rowsPerPage={cardsPerPage}
+          page={page}
+          onChange={handleChangePage}
+        />
+      </Box>
     </Container>
   );
 }

@@ -5,7 +5,7 @@ import AboutPage from "../pages/AboutPage.jsx";
 import FavoritePage from "../pages/FavoritePage.jsx";
 import MyCardsPage from "../pages/MyCardsPage.jsx";
 import { ROUTES } from "./routerDict.js";
-import SendBoxPage from "../sandBox/SendBoxPage.jsx";
+import SandBoxPage from "../sandBox/SandBoxPage.jsx";
 
 export default function Routers() {
   return (
@@ -14,7 +14,7 @@ export default function Routers() {
       <Route path={ROUTES.about} element={<AboutPage />} />
       <Route path={ROUTES.favorite} element={<FavoritePage />} />
       <Route path={ROUTES.MyCards} element={<MyCardsPage />} />
-      <Route path={ROUTES.sendBox} element={<SendBoxPage />} />
+      <Route path={ROUTES.sandBox} element={<SandBoxPage />} />
     </Routes>
   );
 }

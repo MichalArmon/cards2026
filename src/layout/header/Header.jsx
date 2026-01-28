@@ -39,8 +39,8 @@ const Pages = [
     icon: <Favorite />,
   },
   {
-    label: "Send Box",
-    path: ROUTES.sendBox,
+    label: "Sand Box",
+    path: ROUTES.sandBox,
     icon: <School />,
   },
 ];

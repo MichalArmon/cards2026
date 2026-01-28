@@ -5,5 +5,5 @@ export const ROUTES = {
   login: "/login",
   favorite: "/favorite",
   MyCards: "/my-cards",
-  sendBox: "/send-box",
+  sandBox: "/sand-box",
 };

@@ -26,42 +26,10 @@ const theme = createTheme({
       primary: "#2E2A3A",
       secondary: "#6E6686",
     },
-
-    divider: "#E3DDF3",
   },
 
   typography: {
     fontFamily: `"Montserrat", "Roboto", "Helvetica", "Arial", sans-serif`,
-
-    h1: { fontWeight: 700 },
-    h2: { fontWeight: 600 },
-    h3: { fontWeight: 600 },
-    h4: { fontWeight: 500 },
-
-    button: {
-      textTransform: "none",
-      fontWeight: 600,
-    },
-  },
-
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-          paddingInline: 20,
-        },
-      },
-    },
-
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          textTransform: "none",
-          fontWeight: 500,
-        },
-      },
-    },
   },
 });
 
