@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import {
   CardGiftcard,
+  AppRegistration,
   Favorite,
   Home,
   Person,
@@ -42,6 +43,11 @@ const Pages = [
     label: "Sand Box",
     path: ROUTES.sandBox,
     icon: <School />,
+  },
+  {
+    label: "Register",
+    path: ROUTES.register,
+    icon: <AppRegistration />,
   },
 ];
 

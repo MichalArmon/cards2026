@@ -1,6 +1,7 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 import CountryList from "./components/CountryList";
+import CountryListDeconstructed from "./components/CountryListDeconstructed";
 
 export default function SendBoxPage() {
   return (
@@ -11,8 +12,9 @@ export default function SendBoxPage() {
       <Typography sx={{ marginBottom: 3 }} variant="h1">
         Send Box{" "}
       </Typography>
+      <CountryListDeconstructed />
 
-      <CountryList />
+      {/* <CountryList /> */}
     </Box>
   );
 }

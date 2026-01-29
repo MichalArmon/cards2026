@@ -6,6 +6,7 @@ import FavoritePage from "../pages/FavoritePage.jsx";
 import MyCardsPage from "../pages/MyCardsPage.jsx";
 import { ROUTES } from "./routerDict.js";
 import SandBoxPage from "../sandBox/SandBoxPage.jsx";
+import RegisterPage from "../pages/RegisterPage.jsx";
 
 export default function Routers() {
   return (
@@ -15,6 +16,7 @@ export default function Routers() {
       <Route path={ROUTES.favorite} element={<FavoritePage />} />
       <Route path={ROUTES.MyCards} element={<MyCardsPage />} />
       <Route path={ROUTES.sandBox} element={<SandBoxPage />} />
+      <Route path={ROUTES.register} element={<RegisterPage />} />
     </Routes>
   );
 }
