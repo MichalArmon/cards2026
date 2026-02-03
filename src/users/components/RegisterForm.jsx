@@ -1,44 +1,209 @@
-import { Container, Typography, Paper, TextField } from "@mui/material";
+import { Close } from "@mui/icons-material";
+import {
+  Container,
+  Typography,
+  Paper,
+  TextField,
+  InputAdornment,
+  IconButton,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+} from "@mui/material";
+import { borderRadius } from "@mui/system";
 import Box from "@mui/system/Box";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
-import React from "react";
+import Joi from "joi";
+import React, { useState } from "react";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
   display: "flex",
-  justifyContent: "stretch",
-  flexDirection: "column",
-  gap: 10,
 
-  border: "1px solid",
+  //   border: "1px solid",
   borderColor: "#ced7e0",
-  padding: theme.spacing(1),
-  borderRadius: "4px",
-  textAlign: "center",
+  padding: theme.spacing(0.7),
+
   ...theme.applyStyles("dark", {
     backgroundColor: "#1A2027",
     borderColor: "#444d58",
   }),
 }));
 
+const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
+  <TextField
+    {...props}
+    onChange={onChange}
+    label={label}
+    variant="outlined"
+    size="small"
+    fullWidth
+    margin="dense"
+    sx={sx}
+    error={error}
+    helperText={helperText}
+  />
+);
+
 export default function RegisterForm() {
+  const [userDetails, setUserDetails] = useState({
+    first: "",
+    middle: "",
+    last: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const schema = Joi.object({
+    first: Joi.string().min(2),
+    middle: Joi.string().min(2).allow(""),
+    last: Joi.string(),
+  });
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setUserDetails((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+    console.log(value);
+    const { error } = schema.validate(userDetails, { abortEarly: false });
+    if (error) {
+      console.log(error.details[0].message);
+      const newErrors = {};
+      error.details.forEach((e) => (newErrors[e.path[0]] = e.message));
+      setErrors(newErrors);
+      console.log(errors);
+    }
+  };
+
+  const handleSignIn = () => {
+    console.log(userDetails);
+  };
+
   return (
     <>
-      <Grid container spacing={2} sx={{ width: "80vw" }}>
-        <Grid size={4}>
+      <Grid container sx={{ width: "40vw", bgcolor: "#fff" }}>
+        <Grid container size={12} sx={{ display: "flex" }}>
+          <Grid size={4}>
+            <Item>
+              <MyTextField
+                label="First Name"
+                name="first"
+                onChange={handleChange}
+                helperText={errors.first}
+                error={Boolean(errors.first)}
+              />
+            </Item>
+          </Grid>
+          <Grid size={4}>
+            <Item>
+              {" "}
+              <MyTextField
+                label="Middle Name"
+                name="middle"
+                onChange={handleChange}
+                helperText={errors.middle}
+                error={Boolean(errors.middle)}
+              />
+            </Item>
+          </Grid>
+          <Grid size={4}>
+            <Item>
+              {" "}
+              <MyTextField
+                label="Last Name"
+                name="last"
+                onChange={handleChange}
+              />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid container size={12}>
+          <Grid size={6}>
+            <Item>
+              {" "}
+              <MyTextField label="Phone" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={6}>
+            <Item>
+              {" "}
+              <MyTextField label="Email" onChange={handleChange} />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid size={12}>
           <Item>
-            <TextField fullWidth />
-            <TextField fullWidth />
-            <TextField fullWidth />
-            <TextField fullWidth />
+            <MyTextField
+              label="Password"
+              onChange={handleChange}
+              // sx={{ "& .MuiOutlinedInput-root": { borderRadius: 5 } }}
+            />
           </Item>
         </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
+        <Grid container size={12} onChange={handleChange}>
+          <Grid size={6}>
+            <Item>
+              {" "}
+              <MyTextField label="png" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={6}>
+            <Item>
+              {" "}
+              <MyTextField label="alt" onChange={handleChange} />
+            </Item>
+          </Grid>
         </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
+        <Grid container size={12}>
+          <Grid size={3}>
+            <Item>
+              {" "}
+              <MyTextField label="state" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={4}>
+            <Item>
+              {" "}
+              <MyTextField label="country" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={5}>
+            <Item>
+              {" "}
+              <MyTextField label="city" onChange={handleChange} />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid container size={12}>
+          <Grid size={4}>
+            <Item>
+              {" "}
+              <MyTextField label="street" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={2}>
+            <Item>
+              {" "}
+              <MyTextField label="num" onChange={handleChange} />
+            </Item>
+          </Grid>
+          <Grid size={6}>
+            <Item>
+              {" "}
+              <MyTextField label="ZIP" onChange={handleChange} />
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid size={12}>
+          <Item>
+            <Button variant="contained" fullWidth onClick={handleSignIn}>
+              Register
+            </Button>
+          </Item>
         </Grid>
       </Grid>
     </>

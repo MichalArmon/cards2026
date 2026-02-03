@@ -44,13 +44,13 @@ const Pages = [
     path: ROUTES.sandBox,
     icon: <School />,
   },
-  {
-    label: "Register",
-    path: ROUTES.register,
-    icon: <AppRegistration />,
-  },
 ];
 
+const register = {
+  label: "Register",
+  path: ROUTES.register,
+  icon: <AppRegistration />,
+};
 export default function Header() {
   const [selected, setSelected] = useState("Home");
 
@@ -81,6 +81,19 @@ export default function Header() {
               }}
             />
           ))}
+          <Tab
+            icon={register.icon}
+            component={Link}
+            to={register.path}
+            value={register.label}
+            key={register.label}
+            label={register.label}
+            sx={{
+              color: "secondary.light",
+              fontSize: 16,
+              "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
+            }}
+          />
         </Tabs>
         <Box>Logo</Box>
       </Toolbar>
