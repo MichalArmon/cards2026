@@ -4,7 +4,7 @@ import BCards from "../cards/components/BCards";
 export default function CardsPage() {
   return (
     <>
-      <div>CardsPage11111111111</div>
+      <div>CardsPage</div>
       <BCards />
     </>
   );
