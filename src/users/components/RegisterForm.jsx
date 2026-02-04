@@ -19,7 +19,8 @@ import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
 import Joi from "joi";
 import React, { useState } from "react";
-import useForm from "../hooks/useForm";
+import useForm from "../../hooks/useForm";
+import TitlePage from "../../components/TitlePage";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -50,13 +51,69 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
   />
 );
 
+const initialValues = {
+  name: {
+    first: "",
+    middle: "",
+    last: "",
+  },
+  phone: "",
+  email: "",
+  password: "",
+  image: {
+    url: "",
+    alt: "",
+  },
+  address: {
+    state: "",
+    country: "",
+    city: "",
+    street: "",
+    houseNumber: "",
+    zip: "",
+  },
+  isBusiness: true,
+};
+const schemaOBJ = {
+  name: {
+    first: Joi.string().min(2).max(10),
+    middle: Joi.string().min(2).max(10),
+    last: Joi.string().min(2).max(10),
+  },
+  phone: "",
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
+  password: "",
+  image: {
+    url: "",
+    alt: "",
+  },
+  address: {
+    state: Joi.string().min(2).max(10),
+    country: Joi.string().min(2).max(10),
+    city: Joi.string().min(2).max(10),
+    street: Joi.number().required(),
+    houseNumber: Joi.number().required(),
+    zip: Joi.number().required(),
+  },
+  isBusiness: true,
+};
+
 export default function RegisterForm() {
-  const { handleChange, handleSignIn, errors } = useForm();
+  const { handleChange, handleSignIn, errors } = useForm(initialValues, {
+    first: Joi.string().min(2).max(10),
+    middle: Joi.string().min(2).allow(),
+    last: Joi.string(),
+  });
   return (
     <>
-      <Grid container sx={{ width: "40vw", bgcolor: "#fff" }}>
+      <Grid
+        container
+        sx={{ bgcolor: "#fff", maxWidth: { md: "sm", xs: "lg" } }}
+      >
         <Grid container size={12} sx={{ display: "flex" }}>
-          <Grid size={4}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Item>
               <MyTextField
                 label="First Name"
@@ -67,35 +124,45 @@ export default function RegisterForm() {
               />
             </Item>
           </Grid>
-          <Grid size={4}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField
                 label="Middle Name"
                 name="middle"
                 onChange={handleChange}
+                error={Boolean(errors.middle)}
+                helperText={errors.middle}
               />
             </Item>
           </Grid>
-          <Grid size={4}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField
                 label="Last Name"
                 name="last"
                 onChange={handleChange}
+                error={Boolean(errors.last)}
+                helperText={errors.last}
               />
             </Item>
           </Grid>
         </Grid>
         <Grid container size={12}>
-          <Grid size={6}>
+          <Grid size={{ md: 6, xs: 12 }}>
             <Item>
               {" "}
-              <MyTextField label="Phone" onChange={handleChange} />
+              <MyTextField
+                label="Phone"
+                name="phone"
+                onChange={handleChange}
+                error={Boolean(errors.phone)}
+                helperText={errors.pho}
+              />
             </Item>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ md: 6, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="Email" onChange={handleChange} />
@@ -112,13 +179,13 @@ export default function RegisterForm() {
           </Item>
         </Grid>
         <Grid container size={12} onChange={handleChange}>
-          <Grid size={6}>
+          <Grid size={{ md: 6, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="png" onChange={handleChange} />
             </Item>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ md: 6, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="alt" onChange={handleChange} />
@@ -126,19 +193,19 @@ export default function RegisterForm() {
           </Grid>
         </Grid>
         <Grid container size={12}>
-          <Grid size={3}>
+          <Grid size={{ md: 3, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="state" onChange={handleChange} />
             </Item>
           </Grid>
-          <Grid size={4}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="country" onChange={handleChange} />
             </Item>
           </Grid>
-          <Grid size={5}>
+          <Grid size={{ md: 5, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="city" onChange={handleChange} />
@@ -146,19 +213,19 @@ export default function RegisterForm() {
           </Grid>
         </Grid>
         <Grid container size={12}>
-          <Grid size={4}>
+          <Grid size={{ md: 4, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="street" onChange={handleChange} />
             </Item>
           </Grid>
-          <Grid size={2}>
+          <Grid size={{ md: 2, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="num" onChange={handleChange} />
             </Item>
           </Grid>
-          <Grid size={6}>
+          <Grid size={{ md: 6, xs: 12 }}>
             <Item>
               {" "}
               <MyTextField label="ZIP" onChange={handleChange} />

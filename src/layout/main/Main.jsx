@@ -6,13 +6,10 @@ export default function Main({ children }) {
     <Box
       sx={{
         minHeight: "85vh",
-        paddingTop: 15,
+        paddingTop: 10,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-
-        gap: 3,
       }}
     >
       {children}

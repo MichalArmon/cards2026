@@ -18,7 +18,7 @@ import Box from "@mui/system/Box";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
 
-import useForm from "../hooks/useForm";
+import useForm from "../../hooks/useForm";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",

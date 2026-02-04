@@ -1,30 +1,25 @@
 import { useState } from "react";
 import Joi from "joi";
 
-function useForm() {
-  const [userDetails, setUserDetails] = useState({
-    first: "",
-    middle: "",
-    last: "",
-  });
+function useForm(initialValues, schemaOBJ) {
+  const [formDetails, setFormDetails] = useState(initialValues);
   const [errors, setErrors] = useState({});
-  const schemaOBJ = {
-    first: Joi.string().min(2).max(10),
-    middle: Joi.string().min(2).allow(),
-    last: Joi.string(),
-  };
+
   const schema = Joi.object(schemaOBJ);
 
   const handleChange = (event) => {
     const fieldValue = event.target.value;
     const fieldName = event.target.name;
-    setUserDetails((prev) => ({ ...prev, [fieldName]: fieldValue }));
+    setFormDetails((prev) => ({ ...prev, [fieldName]: fieldValue }));
     console.log(fieldValue);
 
     const fieldSchema = Joi.object({
       [fieldName]: schemaOBJ[fieldName],
     });
-    const { error } = fieldSchema.validate({ [fieldName]: fieldValue });
+    const { error } = fieldSchema.validate(
+      { [fieldName]: fieldValue },
+      { abortEarly: false },
+    );
 
     if (error) {
       console.log(error.details[0].message);
@@ -37,13 +32,13 @@ function useForm() {
     }
   };
 
-  const handleSignIn = () => {
-    console.log(userDetails);
-    const { error } = schema.validate(userDetails, { abortEarly: false });
+  const handleSubmit = () => {
+    console.log(formDetails);
+    const { error } = schema.validate(formDetails, { abortEarly: false });
     console.log(error);
   };
 
-  return { handleChange, handleSignIn, errors };
+  return { handleChange, handleSubmit, errors };
 }
 
 export default useForm;

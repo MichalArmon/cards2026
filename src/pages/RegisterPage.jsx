@@ -1,5 +1,6 @@
 import { Container, Typography } from "@mui/material";
 import RegisterForm from "../users/components/RegisterForm";
+import TitlePage from "../components/TitlePage";
 
 function RegisterPage() {
   return (
@@ -8,12 +9,12 @@ function RegisterPage() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-
+        gap: 2,
         height: "100%",
         flexGrow: 1,
       }}
     >
-      <Typography variant="h4">Sign Up</Typography>
+      <TitlePage Children="Sign Up" />
       <RegisterForm />
     </Container>
   );
