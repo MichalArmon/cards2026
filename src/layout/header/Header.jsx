@@ -10,7 +10,9 @@ import {
   Person,
   School,
   Style,
+  Login,
 } from "@mui/icons-material";
+
 import { ROUTES } from "../../routes/routerDict";
 
 const Pages = [
@@ -51,6 +53,12 @@ const register = {
   path: ROUTES.register,
   icon: <AppRegistration />,
 };
+
+const login = {
+  label: "Login",
+  path: ROUTES.login,
+  icon: <Login />,
+};
 export default function Header() {
   const [selected, setSelected] = useState("Home");
 
@@ -88,6 +96,19 @@ export default function Header() {
             value={register.label}
             key={register.label}
             label={register.label}
+            sx={{
+              color: "secondary.light",
+              fontSize: 16,
+              "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
+            }}
+          />
+          <Tab
+            icon={login.icon}
+            component={Link}
+            to={login.path}
+            value={login.label}
+            key={login.label}
+            label={login.label}
             sx={{
               color: "secondary.light",
               fontSize: 16,

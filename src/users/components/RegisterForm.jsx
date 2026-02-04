@@ -13,12 +13,13 @@ import {
   DialogTitle,
   DialogContentText,
 } from "@mui/material";
-import { borderRadius } from "@mui/system";
+
 import Box from "@mui/system/Box";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
 import Joi from "joi";
 import React, { useState } from "react";
+import useForm from "../hooks/useForm";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -50,39 +51,7 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
 );
 
 export default function RegisterForm() {
-  const [userDetails, setUserDetails] = useState({
-    first: "",
-    middle: "",
-    last: "",
-  });
-  const [errors, setErrors] = useState({});
-
-  const schema = Joi.object({
-    first: Joi.string().min(2),
-    middle: Joi.string().min(2).allow(""),
-    last: Joi.string(),
-  });
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setUserDetails((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-    console.log(value);
-    const { error } = schema.validate(userDetails, { abortEarly: false });
-    if (error) {
-      console.log(error.details[0].message);
-      const newErrors = {};
-      error.details.forEach((e) => (newErrors[e.path[0]] = e.message));
-      setErrors(newErrors);
-      console.log(errors);
-    }
-  };
-
-  const handleSignIn = () => {
-    console.log(userDetails);
-  };
-
+  const { handleChange, handleSignIn, errors } = useForm();
   return (
     <>
       <Grid container sx={{ width: "40vw", bgcolor: "#fff" }}>
@@ -93,8 +62,8 @@ export default function RegisterForm() {
                 label="First Name"
                 name="first"
                 onChange={handleChange}
-                helperText={errors.first}
                 error={Boolean(errors.first)}
+                helperText={errors.first}
               />
             </Item>
           </Grid>
@@ -105,8 +74,6 @@ export default function RegisterForm() {
                 label="Middle Name"
                 name="middle"
                 onChange={handleChange}
-                helperText={errors.middle}
-                error={Boolean(errors.middle)}
               />
             </Item>
           </Grid>
