@@ -23,7 +23,7 @@ function useForm(initialValues, schemaOBJ) {
 
     if (error) {
       console.log(error.details[0].message);
-      setErrors({ [fieldName]: error.details[0].message });
+      setErrors((prev) => ({ ...prev, [fieldName]: error.details[0].message }));
     } else {
       setErrors((prev) => {
         delete prev[fieldName];

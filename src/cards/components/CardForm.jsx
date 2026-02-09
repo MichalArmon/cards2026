@@ -16,6 +16,7 @@ import Joi from "joi";
 
 import useForm from "../../hooks/useForm";
 import TitlePage from "../../components/TitlePage";
+import createCardSchema from "../models/CreateCardSchema";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -31,7 +32,15 @@ const Item = styled("div")(({ theme }) => ({
   }),
 }));
 
-const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
+const MyTextField = ({
+  label,
+  onChange,
+  sx,
+  error,
+  helperText,
+  type,
+  ...props
+}) => (
   <TextField
     {...props}
     onChange={onChange}
@@ -43,6 +52,7 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
     sx={sx}
     error={error}
     helperText={helperText}
+    type={type}
   />
 );
 
@@ -66,35 +76,11 @@ const initialValues = {
     zip: "",
   },
 };
-const schemaOBJ = {
-  title: Joi.string().min(2).max(10),
-  subTitle: Joi.string().min(2).max(10),
-  description: Joi.string().min(2).max(10),
-
-  phone: "",
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required(),
-  web: "",
-
-  image: {
-    url: "",
-    alt: "",
-  },
-  address: {
-    state: Joi.string().min(2).max(10),
-    country: Joi.string().min(2).max(10),
-    city: Joi.string().min(2).max(10),
-    street: Joi.number().required(),
-    houseNumber: Joi.number().required(),
-    zip: Joi.number().required(),
-  },
-};
 
 function CardForm() {
   const { handleChange, handleSignIn, errors } = useForm(
     initialValues,
-    schemaOBJ,
+    createCardSchema,
   );
   return (
     <Grid container sx={{ bgcolor: "#fff", maxWidth: { md: "sm", xs: "lg" } }}>

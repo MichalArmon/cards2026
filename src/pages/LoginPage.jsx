@@ -1,8 +1,13 @@
 import { Container, Typography } from "@mui/material";
 import RegisterForm from "../users/components/RegisterForm";
 import LoginForm from "../users/components/LoginForm";
-
+import Joi from "joi";
 function LoginPage() {
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
   return (
     <Container
       sx={{
@@ -15,7 +20,7 @@ function LoginPage() {
       }}
     >
       <Typography variant="h4">Login</Typography>
-      <LoginForm />
+      <LoginForm initialValues={initialValues} />
     </Container>
   );
 }

@@ -19,6 +19,7 @@ import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
 
 import useForm from "../../hooks/useForm";
+import logInSchema from "../models/logInSchema";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -40,7 +41,6 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
     onChange={onChange}
     label={label}
     variant="outlined"
-    size="small"
     fullWidth
     margin="dense"
     sx={sx}
@@ -49,39 +49,52 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
   />
 );
 
-export default function LoginForm() {
-  const { handleChange, handleSignIn, errors } = useForm();
+export default function LoginForm({ initialValues }) {
+  const { handleChange, handleSubmit, errors } = useForm(
+    initialValues,
+    logInSchema,
+  );
   return (
     <>
       <Grid
         container
-        sx={{ width: "40vw", bgcolor: "#fff", flexDirection: "column" }}
+        spacing={2}
+        sx={{
+          minWidth: 300,
+
+          bgcolor: "#ffffffff",
+          flexDirection: "column",
+        }}
       >
-        <Item>
+        <Grid>
           <MyTextField
+            name="email"
             label="Email"
             name="email"
             onChange={handleChange}
             error={Boolean(errors.first)}
-            helperText={errors.first}
+            helperText={errors.email}
+            error={Boolean(errors.email)}
           />
-        </Item>
+        </Grid>
 
-        <Item>
+        <Grid>
           <MyTextField
+            name="password"
             label="Password"
             name="password"
             onChange={handleChange}
             error={Boolean(errors.first)}
-            helperText={errors.first}
+            helperText={errors.password}
+            error={Boolean(errors.password)}
           />
-        </Item>
+        </Grid>
 
-        <Item>
-          <Button variant="contained" fullWidth onClick={handleSignIn}>
+        <Grid>
+          <Button variant="contained" fullWidth onClick={handleSubmit}>
             Register
           </Button>
-        </Item>
+        </Grid>
       </Grid>
     </>
   );

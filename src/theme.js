@@ -22,10 +22,10 @@ const theme = createTheme({
       paper: "#FFFFFF",
     },
 
-    text: {
-      primary: "#2E2A3A",
-      secondary: "#6E6686",
-    },
+    // text: {
+    //   primary: "#2E2A3A",
+    //   secondary: "#6E6686",
+    // },
   },
 
   typography: {
