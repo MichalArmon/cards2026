@@ -5,12 +5,15 @@ import { Loop } from "@mui/icons-material";
 
 function Form({
   title = "",
+  titleVariant = "h5",
   onReset,
   onSubmit,
   color,
   to = "/",
   styles = {},
   spacing = 1,
+  align = "center",
+  titleSize,
   children,
 }) {
   const navigate = useNavigate();
@@ -24,10 +27,17 @@ function Form({
       color={color}
       noValidate
       autoComplete="off"
-      sx={{ mt: 2, ...styles }}
+      sx={{ ...styles }}
     >
-      <Typography align="center" variant="h5" component="h1" mb={2}>
-        {title.toUpperCase()}
+      <Typography
+        align={align}
+        variant={titleVariant}
+        component="h1"
+        mb={2}
+        mt={2}
+        sx={{ fontSize: titleSize, px: 0.7 }}
+      >
+        {title}
       </Typography>
       <Grid spacing={spacing} container disableGutters>
         {children}

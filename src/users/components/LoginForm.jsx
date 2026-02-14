@@ -17,9 +17,11 @@ import {
 import Box from "@mui/system/Box";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
-
+import Form from "../../form/components/Form";
 import useForm from "../../hooks/useForm";
 import logInSchema from "../models/logInSchema";
+import axios from "axios";
+import initialLoginValues from "../helpers/initialValues/initialLoginValues";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -35,7 +37,16 @@ const Item = styled("div")(({ theme }) => ({
   }),
 }));
 
-const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
+const MyTextField = ({
+  label,
+  onChange,
+  sx,
+  error,
+  helperText,
+  value,
+  type,
+  ...props
+}) => (
   <TextField
     {...props}
     onChange={onChange}
@@ -46,56 +57,97 @@ const MyTextField = ({ label, onChange, sx, error, helperText, ...props }) => (
     sx={sx}
     error={error}
     helperText={helperText}
+    type={type}
+    value={value}
   />
 );
 
-export default function LoginForm({ initialValues }) {
-  const { handleChange, handleSubmit, errors } = useForm(
-    initialValues,
+const handleSubmitLogin = async (user) => {
+  console.log(user);
+
+  try {
+    const response = await axios.post(
+      "https://cardsserver-8uqn.onrender.com/users/login",
+      user,
+    );
+    console.log(response.data);
+    localStorage.setItem("token", response.data);
+  } catch (error) {
+    console.log(error);
+    alert("The login failed");
+  }
+};
+
+export default function LoginForm() {
+  const { handleChange, handleSubmit, errors, formDetails } = useForm(
+    initialLoginValues,
     logInSchema,
+    handleSubmitLogin,
   );
   return (
     <>
-      <Grid
-        container
-        spacing={2}
+      <Paper
         sx={{
-          minWidth: 300,
-
-          bgcolor: "#ffffffff",
+          display: "flex",
           flexDirection: "column",
+          overflow: "hidden",
         }}
       >
-        <Grid>
-          <MyTextField
-            name="email"
-            label="Email"
-            name="email"
-            onChange={handleChange}
-            error={Boolean(errors.first)}
-            helperText={errors.email}
-            error={Boolean(errors.email)}
-          />
-        </Grid>
-
-        <Grid>
-          <MyTextField
-            name="password"
-            label="Password"
-            name="password"
-            onChange={handleChange}
-            error={Boolean(errors.first)}
-            helperText={errors.password}
-            error={Boolean(errors.password)}
-          />
-        </Grid>
-
-        <Grid>
-          <Button variant="contained" fullWidth onClick={handleSubmit}>
-            Register
-          </Button>
-        </Grid>
-      </Grid>
+        <Box
+          sx={{
+            height: 150,
+            backgroundImage:
+              "linear-gradient(45deg, #7a5cd6cc 30%, #21CBF3 90%),url('/businesscards-tileimage-1x1.jpg')",
+          }}
+        ></Box>
+        <Form
+          title="Login"
+          styles={{ padding: 2 }}
+          align={"start"}
+          titleSize={"16px"}
+          handleSubmit={handleSubmit}
+        >
+          <Grid
+            container
+            spacing={1.5}
+            sx={{
+              p: 0.7,
+              minWidth: 300,
+              bgcolor: "#ffffffff",
+              flexDirection: "column",
+            }}
+          >
+            <Grid>
+              <MyTextField
+                size="small"
+                name="email"
+                label="Email"
+                onChange={handleChange}
+                helperText={errors.email}
+                error={Boolean(errors.email)}
+                value={formDetails.email}
+              />
+            </Grid>
+            <Grid>
+              <MyTextField
+                type="password"
+                size="small"
+                name="password"
+                label="Password"
+                onChange={handleChange}
+                helperText={errors.password}
+                error={Boolean(errors.password)}
+                value={formDetails.password}
+              />
+            </Grid>
+            <Grid>
+              <Button variant="contained" fullWidth onClick={handleSubmit}>
+                Login
+              </Button>
+            </Grid>
+          </Grid>
+        </Form>
+      </Paper>
     </>
   );
 }

@@ -1,11 +1,10 @@
 import Joi from "joi";
 
 const registerSchema = {
-  name: {
-    first: Joi.string().min(2).max(10),
-    middle: Joi.string().min(2).max(10),
-    last: Joi.string().min(2).max(10),
-  },
+  first: Joi.string().min(2).max(10),
+  middle: Joi.string().min(2).max(10).allow(""),
+  last: Joi.string().min(2).max(10),
+
   phone: Joi.string()
     .regex(/0[0-9]{1,2}-?\s?[0-9]{3}\s?[0-9]{4}/)
     .required()
@@ -21,18 +20,17 @@ const registerSchema = {
     .messages({
       "string.pattern.base": "wrong password format",
     }),
-  image: {
-    url: Joi.string().optional().uri(),
-    alt: "",
-  },
-  address: {
-    state: Joi.string().min(2).max(10),
-    country: Joi.string().min(2).max(10),
-    city: Joi.string().min(2).max(10),
-    street: Joi.string().required(),
-    houseNumber: Joi.string().required().max(256),
-    zip: Joi.string().required().min(2).max(256),
-  },
+
+  url: Joi.allow(""),
+  alt: Joi.allow(""),
+
+  state: Joi.allow(""),
+  country: Joi.string().min(2).max(10),
+  city: Joi.string().min(2).max(10),
+  street: Joi.string().required(),
+  houseNumber: Joi.string().required().max(256),
+  zip: Joi.string().required().min(2).max(256),
+
   isBusiness: true,
 };
 

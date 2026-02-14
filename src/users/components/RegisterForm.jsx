@@ -1,26 +1,8 @@
-import { Close, Loop } from "@mui/icons-material";
-import {
-  Container,
-  Typography,
-  Paper,
-  TextField,
-  InputAdornment,
-  IconButton,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  DialogContentText,
-} from "@mui/material";
+import { CheckBox, Close, Loop } from "@mui/icons-material";
+import { Container, Typography, Paper, TextField, Button } from "@mui/material";
 
-import Box from "@mui/system/Box";
 import Grid from "@mui/system/Grid";
 import styled from "@mui/system/styled";
-import Joi from "joi";
-
-import TitlePage from "../../components/TitlePage";
-import { margin } from "@mui/system";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -46,7 +28,6 @@ const MyTextField = ({
   ...props
 }) => (
   <TextField
-    {...props}
     onChange={onChange}
     label={label}
     variant="outlined"
@@ -56,10 +37,11 @@ const MyTextField = ({
     error={error}
     helperText={helperText}
     type={type}
+    {...props}
   />
 );
 
-export default function RegisterForm({ handleChange, errors }) {
+export default function RegisterForm({ handleChange, errors, formDetails }) {
   return (
     <>
       <Grid container sx={{ bgcolor: "#fff", p: 2 }}>
@@ -72,6 +54,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 error={Boolean(errors.first)}
                 helperText={errors.first}
+                value={formDetails.first || ""}
                 required
               />
             </Item>
@@ -85,6 +68,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 error={Boolean(errors.middle)}
                 helperText={errors.middle}
+                value={formDetails.middle}
               />
             </Item>
           </Grid>
@@ -97,6 +81,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 error={Boolean(errors.last)}
                 helperText={errors.last}
+                value={formDetails.last}
                 required
               />
             </Item>
@@ -111,7 +96,8 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="phone"
                 onChange={handleChange}
                 error={Boolean(errors.phone)}
-                helperText={errors.pho}
+                helperText={errors.phone}
+                value={formDetails.phone}
                 type="tel"
                 required
               />
@@ -126,6 +112,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 type="email"
                 error={Boolean(errors.email)}
+                value={formDetails.email}
                 helperText={errors.email}
                 required
               />
@@ -138,6 +125,7 @@ export default function RegisterForm({ handleChange, errors }) {
               label="Password"
               name="password"
               onChange={handleChange}
+              value={formDetails.password}
               type="password"
               required
               error={Boolean(errors.password)}
@@ -152,11 +140,12 @@ export default function RegisterForm({ handleChange, errors }) {
             <Item>
               {" "}
               <MyTextField
-                label="png"
+                label="url"
                 onChange={handleChange}
-                name="png"
-                error={Boolean(errors.png)}
-                helperText={errors.png}
+                name="url"
+                error={Boolean(errors.url)}
+                helperText={errors.url}
+                value={formDetails.url}
               />
             </Item>
           </Grid>
@@ -169,6 +158,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="alt"
                 error={Boolean(errors.alt)}
                 helperText={errors.alt}
+                value={formDetails.alt}
               />
             </Item>
           </Grid>
@@ -183,6 +173,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 error={Boolean(errors.state)}
                 helperText={errors.state}
+                value={formDetails.state}
               />
             </Item>
           </Grid>
@@ -195,6 +186,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="country"
                 error={Boolean(errors.country)}
                 helperText={errors.country}
+                value={formDetails.country}
               />
             </Item>
           </Grid>
@@ -207,6 +199,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 onChange={handleChange}
                 error={Boolean(errors.city)}
                 helperText={errors.city}
+                value={formDetails.city}
               />
             </Item>
           </Grid>
@@ -221,6 +214,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="street"
                 error={Boolean(errors.street)}
                 helperText={errors.street}
+                value={formDetails.street}
               />
             </Item>
           </Grid>
@@ -233,6 +227,7 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="houseNumber"
                 error={Boolean(errors.houseNumber)}
                 helperText={errors.houseNumber}
+                value={formDetails.houseNumber}
               />
             </Item>
           </Grid>
@@ -245,10 +240,20 @@ export default function RegisterForm({ handleChange, errors }) {
                 name="zip"
                 error={Boolean(errors.zip)}
                 helperText={errors.zip}
+                value={formDetails.zip}
               />
             </Item>
           </Grid>
         </Grid>
+        {/* <Grid container size={12}>
+          <Item>
+            <FormControlLabel
+              name="isBusiness"
+              control={<CheckBox />}
+              label="Signup as business"
+            />{" "}
+          </Item>
+        </Grid> */}
         <Grid container size={12}>
           <Grid size={{ md: 6, xs: 12 }}>
             <Item>

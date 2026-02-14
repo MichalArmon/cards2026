@@ -1,26 +1,21 @@
 import { Container, Typography } from "@mui/material";
-import RegisterForm from "../users/components/RegisterForm";
-import LoginForm from "../users/components/LoginForm";
-import Joi from "joi";
-function LoginPage() {
-  const initialValues = {
-    email: "",
-    password: "",
-  };
 
+import LoginForm from "../users/components/LoginForm";
+
+function LoginPage() {
   return (
     <Container
       sx={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
 
         height: "100%",
         flexGrow: 1,
       }}
     >
-      <Typography variant="h4">Login</Typography>
-      <LoginForm initialValues={initialValues} />
+      <LoginForm />
     </Container>
   );
 }

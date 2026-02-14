@@ -1,13 +1,34 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import RegisterForm from "./RegisterForm";
-import TitlePage from "../../components/TitlePage";
+
 import useForm from "../../hooks/useForm";
 import registerSchema from "../models/registerSchema";
+import axios from "axios";
+import initialRegisterValues from "../helpers/initialValues/initialRegisterValues";
+import normalizeUser from "../helpers/normalization/normalizeUser";
 
-function RegisterComponent({ initialValues }) {
-  const { handleSubmit, handleChange, errors } = useForm(
+const handleSubmitRegister = async (data) => {
+  const userDetailsForServer = normalizeUser(data);
+
+  try {
+    const response = await axios.post(
+      "https://cardsserver-8uqn.onrender.com/users",
+      userDetailsForServer,
+    );
+    console.log(response);
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+      alert(error.response.data);
+    }
+  }
+};
+
+function RegisterComponent() {
+  const { handleSubmit, handleChange, errors, formDetails } = useForm(
+    initialRegisterValues,
     registerSchema,
-    initialValues,
+    handleSubmitRegister,
   );
   return (
     <Grid
@@ -86,7 +107,11 @@ function RegisterComponent({ initialValues }) {
         </Box>
       </Grid>
       <Grid container size={{ md: 8, xs: 12 }}>
-        <RegisterForm handleChange={handleChange} errors={errors} />
+        <RegisterForm
+          handleChange={handleChange}
+          errors={errors}
+          formDetails={formDetails}
+        />
       </Grid>
     </Grid>
   );
