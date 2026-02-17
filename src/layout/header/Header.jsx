@@ -15,6 +15,14 @@ import {
 
 import { ROUTES } from "../../routes/routerDict";
 import { useCustomTheme } from "../../providers/CustomThemeProvider";
+import { useUser } from "../../users/providers/UserProvider";
+
+const tabStyles = {
+  color: "secondary.light",
+  opacity: 1,
+  fontSize: 16,
+  "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
+};
 
 const Pages = [
   {
@@ -61,6 +69,7 @@ const login = {
   icon: <Login />,
 };
 export default function Header() {
+  const { user } = useUser();
   const [selected, setSelected] = useState("Home");
   const { isDark, setIsDark, toggleMode } = useCustomTheme();
 
@@ -68,6 +77,7 @@ export default function Header() {
     <AppBar>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <Tabs
+          textColor="inherit"
           onChange={(_e, newValue) => setSelected(newValue)}
           value={selected}
           display="flex"
@@ -84,39 +94,31 @@ export default function Header() {
               value={page.label}
               key={page.label}
               label={page.label}
-              sx={{
-                color: "secondary.light",
-                fontSize: 16,
-                "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
-              }}
+              sx={tabStyles}
             />
           ))}
-          <Tab
-            icon={register.icon}
-            component={Link}
-            to={register.path}
-            value={register.label}
-            key={register.label}
-            label={register.label}
-            sx={{
-              color: "secondary.light",
-              fontSize: 16,
-              "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
-            }}
-          />
-          <Tab
-            icon={login.icon}
-            component={Link}
-            to={login.path}
-            value={login.label}
-            key={login.label}
-            label={login.label}
-            sx={{
-              color: "secondary.light",
-              fontSize: 16,
-              "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
-            }}
-          />
+          {!user ? (
+            <>
+              <Tab
+                icon={register.icon}
+                component={Link}
+                to={register.path}
+                value={register.label}
+                key={register.label}
+                label={register.label}
+                sx={tabStyles}
+              />
+              <Tab
+                icon={login.icon}
+                component={Link}
+                to={login.path}
+                value={login.label}
+                key={login.label}
+                label={login.label}
+                sx={tabStyles}
+              />
+            </>
+          ) : null}
         </Tabs>
         <Button
           sx={{

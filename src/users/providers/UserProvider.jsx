@@ -5,7 +5,7 @@ const UserContext = createContext();
 
 // 2.create provider
 export default function UserProvider({ children }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
 
   return (
