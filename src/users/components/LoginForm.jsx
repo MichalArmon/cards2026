@@ -22,6 +22,12 @@ import useForm from "../../hooks/useForm";
 import logInSchema from "../models/logInSchema";
 import axios from "axios";
 import initialLoginValues from "../helpers/initialValues/initialLoginValues";
+import { useUser } from "../providers/UserProvider";
+import {
+  getUser,
+  setTokenInLocalStorage,
+} from "../../services/localStorageService";
+import { useEffect } from "react";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -62,28 +68,32 @@ const MyTextField = ({
   />
 );
 
-const handleSubmitLogin = async (user) => {
-  console.log(user);
-
-  try {
-    const response = await axios.post(
-      "https://cardsserver-8uqn.onrender.com/users/login",
-      user,
-    );
-    console.log(response.data);
-    localStorage.setItem("token", response.data);
-  } catch (error) {
-    console.log(error);
-    alert("The login failed");
-  }
-};
-
 export default function LoginForm() {
+  const { user, setUser, token, setToken } = useUser();
+  const handleSubmitLogin = async (user1) => {
+    console.log(user1);
+
+    try {
+      const response = await axios.post(
+        "https://cardsserver-8uqn.onrender.com/users/login",
+        user1,
+      );
+      console.log(response.data);
+      setTokenInLocalStorage(response.data);
+      setToken(response.data);
+      const decodedUser = getUser();
+      setUser(decodedUser);
+    } catch (error) {
+      console.log(error);
+      alert("The login failed");
+    }
+  };
   const { handleChange, handleSubmit, errors, formDetails } = useForm(
     initialLoginValues,
     logInSchema,
     handleSubmitLogin,
   );
+
   return (
     <>
       <Paper

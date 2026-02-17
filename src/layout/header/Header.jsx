@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, Tabs, Tab } from "@mui/material";
+import { AppBar, Toolbar, Box, Tabs, Tab, Button } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,7 @@ import {
 } from "@mui/icons-material";
 
 import { ROUTES } from "../../routes/routerDict";
+import { useCustomTheme } from "../../providers/CustomThemeProvider";
 
 const Pages = [
   {
@@ -61,6 +62,7 @@ const login = {
 };
 export default function Header() {
   const [selected, setSelected] = useState("Home");
+  const { isDark, setIsDark, toggleMode } = useCustomTheme();
 
   return (
     <AppBar>
@@ -116,6 +118,16 @@ export default function Header() {
             }}
           />
         </Tabs>
+        <Button
+          sx={{
+            color: "secondary.light",
+            fontSize: 16,
+            "&.Mui-selected": { fontWeight: 600, color: "secondary.light" },
+          }}
+          onClick={toggleMode}
+        >
+          {isDark ? "Light" : "Dark"}
+        </Button>
         <Box>Logo</Box>
       </Toolbar>
     </AppBar>
