@@ -68,8 +68,13 @@ const login = {
   path: ROUTES.login,
   icon: <Login />,
 };
+const logout = {
+  label: "Logout",
+
+  icon: <Login />,
+};
 export default function Header() {
-  const { user } = useUser();
+  const { user, handleLogout } = useUser();
   const [selected, setSelected] = useState("Home");
   const { isDark, setIsDark, toggleMode } = useCustomTheme();
 
@@ -119,6 +124,14 @@ export default function Header() {
               />
             </>
           ) : null}
+          <Tab
+            icon={logout.icon}
+            component="button"
+            value={logout.label}
+            label={logout.label}
+            sx={tabStyles}
+            onClick={handleLogout}
+          />
         </Tabs>
         <Button
           sx={{

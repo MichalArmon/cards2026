@@ -27,7 +27,8 @@ import {
   getUser,
   setTokenInLocalStorage,
 } from "../../services/localStorageService";
-import { useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -69,25 +70,8 @@ const MyTextField = ({
 );
 
 export default function LoginForm() {
-  const { user, setUser, token, setToken } = useUser();
-  const handleSubmitLogin = async (user1) => {
-    console.log(user1);
+  const { handleSubmitLogin } = useUser();
 
-    try {
-      const response = await axios.post(
-        "https://cardsserver-8uqn.onrender.com/users/login",
-        user1,
-      );
-      console.log(response.data);
-      setTokenInLocalStorage(response.data);
-      setToken(response.data);
-      const decodedUser = getUser();
-      setUser(decodedUser);
-    } catch (error) {
-      console.log(error);
-      alert("The login failed");
-    }
-  };
   const { handleChange, handleSubmit, errors, formDetails } = useForm(
     initialLoginValues,
     logInSchema,

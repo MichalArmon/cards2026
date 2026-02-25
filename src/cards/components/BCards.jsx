@@ -11,7 +11,7 @@ import {
   Container,
   Pagination,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import BCard from "./BCard";
 import axios from "axios";
 import PaginationCard from "./PaginationCard";
@@ -94,7 +94,7 @@ import PaginationCard from "./PaginationCard";
 //   },
 // ];
 
-export default function BCards() {
+function BCards() {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
@@ -174,3 +174,4 @@ export default function BCards() {
     </Container>
   );
 }
+export default memo(BCards);

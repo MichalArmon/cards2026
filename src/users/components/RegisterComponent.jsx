@@ -6,30 +6,16 @@ import registerSchema from "../models/registerSchema";
 import axios from "axios";
 import initialRegisterValues from "../helpers/initialValues/initialRegisterValues";
 import normalizeUser from "../helpers/normalization/normalizeUser";
-
-const handleSubmitRegister = async (data) => {
-  const userDetailsForServer = normalizeUser(data);
-
-  try {
-    const response = await axios.post(
-      "https://cardsserver-8uqn.onrender.com/users",
-      userDetailsForServer,
-    );
-    console.log(response);
-  } catch (error) {
-    if (error.response) {
-      console.log(error.response.data);
-      alert(error.response.data);
-    }
-  }
-};
+import { useUser } from "../providers/UserProvider";
 
 function RegisterComponent() {
+  const { handleSubmitRegister } = useUser();
   const { handleSubmit, handleChange, errors, formDetails } = useForm(
     initialRegisterValues,
     registerSchema,
     handleSubmitRegister,
   );
+
   return (
     <Grid
       container
