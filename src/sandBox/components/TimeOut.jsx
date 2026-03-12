@@ -22,10 +22,13 @@ function TimeOut() {
   const [daysLeft, setDaysLeft] = useState(calculateDaysLeft());
 
   useEffect(() => {
-    setInterval(() => {
-      setDaysLeft(calculateDaysLeft(), 1000 * 60 * 60 * 24);
-    }, 1000);
-  }, []);
+    setInterval(
+      () => {
+        setDaysLeft(calculateDaysLeft());
+      },
+      1000 * 60 * 60 * 24,
+    );
+  }, [daysLeft]);
 
   return (
     <Box>

@@ -22,6 +22,8 @@ export default function BCard({
   phone,
   address,
   email,
+  cardID,
+  likes,
 }) {
   return (
     <Card
@@ -42,7 +44,7 @@ export default function BCard({
         email={email}
       />
 
-      <BCardFooter />
+      <BCardFooter cardID={cardID} likes={likes} />
     </Card>
   );
 }

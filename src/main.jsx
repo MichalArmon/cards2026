@@ -8,6 +8,7 @@ import "./index.css";
 import { CssBaseline } from "@mui/material";
 import CustomThemeProvider from "./providers/CustomThemeProvider.jsx";
 import UserProvider from "./users/providers/UserProvider.jsx";
+import CardProvider from "./cards/providers/CardProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,7 +16,9 @@ createRoot(document.getElementById("root")).render(
       <CustomThemeProvider>
         <CssBaseline>
           <UserProvider>
-            <App />
+            <CardProvider>
+              <App />
+            </CardProvider>
           </UserProvider>
         </CssBaseline>
       </CustomThemeProvider>

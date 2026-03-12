@@ -6,4 +6,5 @@ export const ROUTES = {
   favorite: "/favorite",
   MyCards: "/my-cards",
   sandBox: "/sand-box",
+  specificCard: "/cards/:id",
 };

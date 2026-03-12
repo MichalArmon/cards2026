@@ -8,6 +8,7 @@ import { ROUTES } from "./routerDict.js";
 import SandBoxPage from "../sandBox/SandBoxPage.jsx";
 import RegisterPage from "../pages/RegisterPage.jsx";
 import LoginPage from "../pages/LoginPage.jsx";
+import CardDetails from "../cards/components/CardDetails.jsx";
 
 export default function Routers() {
   return (
@@ -19,6 +20,7 @@ export default function Routers() {
       <Route path={ROUTES.sandBox} element={<SandBoxPage />} />
       <Route path={ROUTES.register} element={<RegisterPage />} />
       <Route path={ROUTES.login} element={<LoginPage />} />
+      <Route path={ROUTES.specificCard} element={<CardDetails />} />
     </Routes>
   );
 }

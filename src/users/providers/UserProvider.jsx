@@ -8,6 +8,7 @@ import {
   getToken,
 } from "../../services/localStorageService";
 import { useNavigate } from "react-router-dom";
+import normalizeCard from "../../cards/helpers/normalization/normalizeCard";
 
 // 1.create context
 const UserContext = createContext();
@@ -25,7 +26,7 @@ export default function UserProvider({ children }) {
 
     try {
       const response = await axios.post(
-        "https://cardsserver-8uqn.onrender.com/users",
+        "http://localhost:3000/users",
         userDetailsForServer,
       );
       console.log(response);
@@ -50,7 +51,7 @@ export default function UserProvider({ children }) {
 
     try {
       const response = await axios.post(
-        "https://cardsserver-8uqn.onrender.com/users/login",
+        "http://localhost:3000/users/login",
         user,
       );
       console.log(response.data);

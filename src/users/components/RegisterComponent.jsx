@@ -3,9 +3,9 @@ import RegisterForm from "./RegisterForm";
 
 import useForm from "../../hooks/useForm";
 import registerSchema from "../models/registerSchema";
-import axios from "axios";
+
 import initialRegisterValues from "../helpers/initialValues/initialRegisterValues";
-import normalizeUser from "../helpers/normalization/normalizeUser";
+
 import { useUser } from "../providers/UserProvider";
 
 function RegisterComponent() {

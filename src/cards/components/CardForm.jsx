@@ -15,8 +15,9 @@ import styled from "@mui/system/styled";
 import Joi from "joi";
 
 import useForm from "../../hooks/useForm";
-import TitlePage from "../../components/TitlePage";
+
 import createCardSchema from "../models/CreateCardSchema";
+import { useCard } from "../providers/CardProvider";
 
 const Item = styled("div")(({ theme }) => ({
   backgroundColor: "#fff",
@@ -56,32 +57,13 @@ const MyTextField = ({
   />
 );
 
-const initialValues = {
-  title: "",
-  subTitle: "",
-  description: "",
-  phone: "",
-  email: "",
-
-  image: {
-    url: "",
-    alt: "",
-  },
-  address: {
-    state: "",
-    country: "",
-    city: "",
-    street: "",
-    houseNumber: "",
-    zip: "",
-  },
-};
-
-function CardForm() {
-  const { handleChange, handleSignIn, errors } = useForm(
+function CardForm({ initialValues, handleSubmitForForm, buttonText }) {
+  const { handleSubmit, handleChange, errors, formDetails } = useForm(
     initialValues,
     createCardSchema,
+    handleSubmitForForm,
   );
+  const { card } = useCard();
   return (
     <Grid container sx={{ bgcolor: "#fff", maxWidth: { md: "sm", xs: "lg" } }}>
       <Grid container size={12} sx={{ display: "flex" }}>
@@ -93,6 +75,7 @@ function CardForm() {
               onChange={handleChange}
               error={Boolean(errors.title)}
               helperText={errors.title}
+              value={formDetails.title}
             />
           </Item>
         </Grid>
@@ -101,10 +84,11 @@ function CardForm() {
             {" "}
             <MyTextField
               label="Subtitle"
-              name="subTitle"
+              name="subtitle"
               onChange={handleChange}
-              error={Boolean(errors.subTitle)}
-              helperText={errors.subTitle}
+              error={Boolean(errors.subtitle)}
+              helperText={errors.subtitle}
+              value={formDetails.subtitle}
             />
           </Item>
         </Grid>
@@ -117,6 +101,7 @@ function CardForm() {
               onChange={handleChange}
               error={Boolean(errors.description)}
               helperText={errors.description}
+              value={formDetails.description}
             />
           </Item>
         </Grid>
@@ -130,20 +115,35 @@ function CardForm() {
               name="phone"
               onChange={handleChange}
               error={Boolean(errors.phone)}
-              helperText={errors.pho}
+              helperText={errors.phone}
+              value={formDetails.phone}
             />
           </Item>
         </Grid>
         <Grid size={{ md: 4, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="Email" onChange={handleChange} />
+            <MyTextField
+              label="Email"
+              name="email"
+              onChange={handleChange}
+              error={Boolean(errors.email)}
+              value={formDetails.email}
+              helperText={errors.email}
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 4, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="Web" onChange={handleChange} />
+            <MyTextField
+              label="Web"
+              onChange={handleChange}
+              error={Boolean(errors.web)}
+              value={formDetails.web}
+              helperText={errors.web}
+              name="web"
+            />
           </Item>
         </Grid>
       </Grid>
@@ -152,13 +152,27 @@ function CardForm() {
         <Grid size={{ md: 6, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="png" onChange={handleChange} />
+            <MyTextField
+              label="png"
+              onChange={handleChange}
+              error={Boolean(errors.imageUrl)}
+              value={formDetails.imageUrl}
+              helperText={errors.imageUrl}
+              name="imageUrl"
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 6, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="alt" onChange={handleChange} />
+            <MyTextField
+              label="alt"
+              onChange={handleChange}
+              error={Boolean(errors.imageAlt)}
+              value={formDetails.imageAlt}
+              helperText={errors.imageAlt}
+              name="imageAlt"
+            />
           </Item>
         </Grid>
       </Grid>
@@ -166,19 +180,40 @@ function CardForm() {
         <Grid size={{ md: 3, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="state" onChange={handleChange} />
+            <MyTextField
+              label="state"
+              onChange={handleChange}
+              error={Boolean(errors.addressState)}
+              value={formDetails.addressState}
+              helperText={errors.addressState}
+              name="addressState"
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 4, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="country" onChange={handleChange} />
+            <MyTextField
+              label="country"
+              onChange={handleChange}
+              error={Boolean(errors.addressCountry)}
+              value={formDetails.addressCountry}
+              helperText={errors.addressCountry}
+              name="addressCountry"
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 5, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="city" onChange={handleChange} />
+            <MyTextField
+              label="city"
+              onChange={handleChange}
+              error={Boolean(errors.addressCity)}
+              value={formDetails.addressCity}
+              helperText={errors.addressCity}
+              name="addressCity"
+            />
           </Item>
         </Grid>
       </Grid>
@@ -186,26 +221,47 @@ function CardForm() {
         <Grid size={{ md: 4, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="street" onChange={handleChange} />
+            <MyTextField
+              label="street"
+              onChange={handleChange}
+              error={Boolean(errors.addressStreet)}
+              value={formDetails.addressStreet}
+              helperText={errors.addressStreet}
+              name=" addressStreet"
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 2, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="num" onChange={handleChange} />
+            <MyTextField
+              label="num"
+              onChange={handleChange}
+              error={Boolean(errors.addressHouseNumber)}
+              value={formDetails.addressHouseNumber}
+              helperText={errors.addressHouseNumber}
+              name="addressHouseNumber"
+            />
           </Item>
         </Grid>
         <Grid size={{ md: 6, xs: 12 }}>
           <Item>
             {" "}
-            <MyTextField label="ZIP" onChange={handleChange} />
+            <MyTextField
+              label="ZIP"
+              onChange={handleChange}
+              error={Boolean(errors.addressZip)}
+              value={formDetails.addressZip}
+              helperText={errors.addressZip}
+              name=" addressZip"
+            />
           </Item>
         </Grid>
       </Grid>
       <Grid size={12}>
         <Item>
-          <Button variant="contained" fullWidth onClick={handleSignIn}>
-            Create Card
+          <Button variant="contained" fullWidth onClick={handleSubmit}>
+            {buttonText}
           </Button>
         </Item>
       </Grid>
