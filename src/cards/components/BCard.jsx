@@ -17,7 +17,7 @@ import BCardFooter from "./cardLayout/BCardFooter";
 
 export default function BCard({
   title,
-  subheader,
+  subtitle,
   image,
   phone,
   address,
@@ -38,7 +38,7 @@ export default function BCard({
       <CardMedia component="img" image={image} height="180" />
       <BCardBody
         title={title}
-        subheader={subheader}
+        subtitle={subtitle}
         phone={phone}
         address={address}
         email={email}

@@ -43,7 +43,7 @@ function BCards({ cards }) {
                 key={card._id}
                 cardID={card._id}
                 title={card.title}
-                subheader={card.subtitle}
+                subtitle={card.subtitle}
                 description={card.description}
                 image={card.image.url}
                 phone={card.phone}

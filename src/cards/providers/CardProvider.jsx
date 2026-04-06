@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useUser } from "../../users/providers/UserProvider";
 import normalizeCard from "../helpers/normalization/normalizeCard";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const CardContext = createContext();
 
@@ -15,6 +16,7 @@ export default function CardProvider({ children }) {
   // ✔️✔️✔️GET CARDS ✔️✔️✔️
   const getCardsFromServer = async () => {
     const response = await axios.get("http://localhost:3000/cards");
+    console.log(response);
 
     setCards(response.data);
     console.log("Ill be second!");
@@ -31,14 +33,15 @@ export default function CardProvider({ children }) {
         cardDetailsForServer,
         { headers: { "x-auth-token": token } },
       );
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
       console.log(response);
       getCardsFromServer();
       setIsDialogOpen(false);
       setCard(null);
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data);
-        alert(error.response.data.message);
+        alert(error.response.data);
       }
     }
   };
@@ -76,7 +79,7 @@ export default function CardProvider({ children }) {
     } catch (error) {
       if (error.response) {
         console.log(error.response.data);
-        alert(error.response.data.message);
+        alert(error.response.data);
       } else {
         console.log(error);
       }
@@ -87,10 +90,11 @@ export default function CardProvider({ children }) {
   const handleLikeCard = async (cardID) => {
     try {
       const response = await axios.patch(
-        "http://localhost:3000/cards/" + cardID,
+        `http://localhost:3000/cards/${cardID}/likes/${user._id}`,
         {},
         { headers: { "x-auth-token": token } },
       );
+      console.log(user);
       console.log(response);
       getCardsFromServer();
     } catch (error) {

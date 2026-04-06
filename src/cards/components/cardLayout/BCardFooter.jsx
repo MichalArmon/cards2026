@@ -30,9 +30,15 @@ export default function BCardFooter({ cardID, likes }) {
     handleGetCardByID(cardID);
   }
 
+  const handleEditClick = async () => {
+    await handleGetCardByID(cardID);
+
+    setIsEditDialogOpen(true);
+  };
+
   const handleClose = () => {
     setIsEditDialogOpen(false);
-    // מנקים את הסטייט כדי שהפתיחה הבאה תהיה נקייה
+
     if (setCard) setCard(null);
   };
 
@@ -46,12 +52,7 @@ export default function BCardFooter({ cardID, likes }) {
       >
         <Favorite color={isLiked ? "error" : ""} />
       </IconButton>
-      <IconButton
-        aria-label="edit card"
-        onClick={() => {
-          setIsEditDialogOpen(true);
-        }}
-      >
+      <IconButton aria-label="edit card" onClick={handleEditClick}>
         <Edit />
       </IconButton>
       <Dialog

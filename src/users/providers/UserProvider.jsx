@@ -8,7 +8,6 @@ import {
   getToken,
 } from "../../services/localStorageService";
 import { useNavigate } from "react-router-dom";
-import normalizeCard from "../../cards/helpers/normalization/normalizeCard";
 
 // 1.create context
 const UserContext = createContext();

@@ -2,8 +2,8 @@ import Joi from "joi";
 
 const createCardSchema = {
   title: Joi.string().min(2).max(10).required(),
-  subtitle: Joi.string().min(2).max(10).required(),
-  description: Joi.string().min(2).max(10).required(),
+  subtitle: Joi.string().min(2).max(50).required(),
+  description: Joi.string().min(2).max(100).required(),
 
   // תיקון 1: שימוש בחוקים של Joi במקום מרכאות ריקות
   phone: Joi.string().required(),

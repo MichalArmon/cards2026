@@ -6,8 +6,8 @@ export default function CardsPage() {
   const { cards, getCardsFromServer } = useCard();
   useEffect(() => {
     getCardsFromServer();
-    console.log(cards);
   }, []);
+  console.log(cards);
   return (
     <>
       <div>CardsPage</div>
